@@ -2,7 +2,7 @@
   {
     "id": 1,
     "team1": {
-      "name": "Shareea",
+      "name": "Usooludheen",
       "runs": 0,
       "wickets": 0,
       "overs": 0,
@@ -15,7 +15,7 @@
       "overs": 0,
       "status": "Yet to bat"
     },
-    "matchStatus": "Upcoming",
+    "matchStatus": "Live",
     "tossDecision": ""
   },
   {
