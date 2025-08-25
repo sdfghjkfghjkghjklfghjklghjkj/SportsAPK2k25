@@ -21,13 +21,13 @@ const CATEGORIES = {
 const RANK_SCORES = {
   'Category A': {
     '1st': 20,
-    '2nd': 15,
-    '3rd': 10,
+    '2nd': 13,
+    '3rd': 6,
   },
   'Category B': {
     '1st': 10,
-    '2nd': 7,
-    '3rd': 5,
+    '2nd': 6,
+    '3rd': 3,
   },
 };
 
@@ -407,13 +407,13 @@ const [cricketMatchesInput, setCricketMatchesInput] = useState([]);
       // If a rank is being assigned, check for duplicates
       if (rank) {
         // Find if any other participant already has this rank for the current program
-        const existingParticipantWithRank = Object.keys(newRanks).find(
+        const existingParticipantWithRankId = Object.keys(newRanks).find(
           (id) => id !== String(participantId) && newRanks[id] === rank
         );
 
-        if (existingParticipantWithRank) {
-          alert(`Rank ${rank} is already assigned to another participant. Please select a different rank or clear the existing one.`);
-          return prevRanks; // Do not update state if duplicate rank found
+        if (existingParticipantWithRankId) {
+          // Clear the rank of the previously assigned participant
+          newRanks[existingParticipantWithRankId] = '';
         }
       }
 
