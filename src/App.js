@@ -1,9 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, Suspense, lazy } from 'react';
 import Login from './components/Login';
-import TeamLeaderPortal from './components/TeamLeaderPortal';
-import AdminPortal from './components/AdminPortal';
-import VisitorPortal from './components/VisitorPortal';
-import EventSchedule from './components/EventSchedule'; // Import the new EventSchedule component
+
+const TeamLeaderPortal = lazy(() => import('./components/TeamLeaderPortal'));
+const AdminPortal = lazy(() => import('./components/AdminPortal'));
+const VisitorPortal = lazy(() => import('./components/VisitorPortal'));
+const EventSchedule = lazy(() => import('./components/EventSchedule')); // Import the new EventSchedule component
 
 function App() {
   const [user, setUser] = useState(null); // { email, role }
@@ -70,26 +71,28 @@ function App() {
         )}
 
         {/* Render content based on user role or show visitor portal */}
-        {user ? (
-          user.role === 'admin' ? (
-            <AdminPortal />
-          ) : user.role === 'teamleader1' ? (
-            <TeamLeaderPortal teamName="Usooludheen" />
-          ) : user.role === 'teamleader2' ? (
-            <TeamLeaderPortal teamName="Shareea" />
-          ) : user.role === 'teamleader3' ? (
-            <TeamLeaderPortal teamName="Luga Wal Halara" />
+        <Suspense fallback={<div>Loading...</div>}>
+          {user ? (
+            user.role === 'admin' ? (
+              <AdminPortal />
+            ) : user.role === 'teamleader1' ? (
+              <TeamLeaderPortal teamName="Usooludheen" />
+            ) : user.role === 'teamleader2' ? (
+              <TeamLeaderPortal teamName="Shareea" />
+            ) : user.role === 'teamleader3' ? (
+              <TeamLeaderPortal teamName="Luga Wal Halara" />
+            ) : (
+              // Fallback for logged-in users with no specific portal, or just show visitor portal
+              <VisitorPortal />
+            )
           ) : (
-            // Fallback for logged-in users with no specific portal, or just show visitor portal
+            // Show VisitorPortal when no user is logged in
             <VisitorPortal />
-          )
-        ) : (
-          // Show VisitorPortal when no user is logged in
-          <VisitorPortal />
-        )}
+          )}
 
-        {/* Display Event Schedule for all users */}
-        <EventSchedule />
+          {/* Display Event Schedule for all users */}
+          <EventSchedule />
+        </Suspense>
       </div>
     </div>
   );
