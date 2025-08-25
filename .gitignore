@@ -1,0 +1,8 @@
+# Dependencies
+/node_modules
+/sports-login-app/node_modules
+dist/
+
+# Firebase
+.firebase
+firebase-debug.log

@@ -1,0 +1,106 @@
+.event-schedule-container {
+  font-family: 'Arial', sans-serif;
+  padding: 20px;
+  background-color: #f4f7f6;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  max-width: 900px;
+  margin: 20px auto;
+}
+
+.event-schedule-container h2 {
+  text-align: center;
+  color: #333;
+  margin-bottom: 30px;
+  font-size: 2em;
+  border-bottom: 2px solid #eee;
+  padding-bottom: 10px;
+}
+
+.event-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 20px;
+}
+
+.event-card {
+  background-color: #fff;
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+  border-left: 5px solid;
+}
+
+.event-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+}
+
+.event-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.event-header h3 {
+  margin: 0;
+  color: #333;
+  font-size: 1.4em;
+}
+
+.event-card p {
+  margin: 5px 0;
+  color: #555;
+  font-size: 0.95em;
+}
+
+/* Event States */
+.event-card.upcoming {
+  border-left-color: #6cb7f0; /* Soft blue */
+}
+
+.event-card.upcoming .event-header h3 {
+  color: #6cb7f0;
+}
+
+.event-card.live {
+  border-left-color: #28a745; /* Green */
+  animation: pulse-border 1.5s infinite alternate;
+}
+
+.event-card.live .event-header h3 {
+  color: #28a745;
+}
+
+.live-indicator {
+  background-color: #dc3545; /* Red for LIVE */
+  color: white;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 0.8em;
+  font-weight: bold;
+  animation: blink 1.5s infinite;
+}
+
+.event-card.expired {
+  border-left-color: #6c757d; /* Gray/Dim */
+  opacity: 0.7;
+}
+
+.event-card.expired .event-header h3 {
+  color: #6c757d;
+}
+
+/* Animations */
+@keyframes blink {
+  0% { opacity: 1; }
+  50% { opacity: 0.5; }
+  100% { opacity: 1; }
+}
+
+@keyframes pulse-border {
+  0% { border-left-color: #28a745; }
+  100% { border-left-color: #5cb85c; }
+}

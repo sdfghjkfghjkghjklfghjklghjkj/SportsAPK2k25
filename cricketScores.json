@@ -1,0 +1,59 @@
+[
+  {
+    "id": 1,
+    "team1": {
+      "name": "Shareea",
+      "runs": 0,
+      "wickets": 0,
+      "overs": 0,
+      "status": "Yet to bat"
+    },
+    "team2": {
+      "name": "Luga Wal Halara",
+      "runs": 0,
+      "wickets": 0,
+      "overs": 0,
+      "status": "Yet to bat"
+    },
+    "matchStatus": "Upcoming",
+    "tossDecision": ""
+  },
+  {
+    "id": 2,
+    "team1": {
+      "name": "Usooludheen",
+      "runs": 0,
+      "wickets": 0,
+      "overs": 0,
+      "status": "Yet to bat"
+    },
+    "team2": {
+      "name": "Shareea",
+      "runs": 0,
+      "wickets": 0,
+      "overs": 0,
+      "status": "Yet to bat"
+    },
+    "matchStatus": "Upcoming",
+    "tossDecision": ""
+  },
+  {
+    "id": 3,
+    "team1": {
+      "name": "Luga Wal Halara",
+      "runs": 0,
+      "wickets": 0,
+      "overs": 0,
+      "status": "Yet to bat"
+    },
+    "team2": {
+      "name": "Usooludheen",
+      "runs": 0,
+      "wickets": 0,
+      "overs": 0,
+      "status": "Yet to bat"
+    },
+    "matchStatus": "Upcoming",
+    "tossDecision": ""
+  }
+]
