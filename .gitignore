@@ -7,3 +7,4 @@ dist/
 .firebase
 firebase-debug.log
 src/firebase-config.js
+node_modules
