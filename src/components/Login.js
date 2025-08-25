@@ -37,7 +37,7 @@ function Login({ onLogin, onClose }) {
       >
         &times;
       </button>
-      <h2 className="text-3xl font-extrabold text-center mb-8 text-gray-800">Login to Sports Portal</h2>
+      <h2 className="text-3xl font-extrabold text-center mb-8 text-gray-800">LLLLLLLogin to Sports Portal</h2>
       <form onSubmit={handleSubmit} className="space-y-6">
         {error && <p className="text-red-500 text-center mb-4 text-sm">{error}</p>}
         <div>
