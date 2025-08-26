@@ -1,30 +1,26 @@
 import React, { useState } from 'react';
-
-// Fixed user credentials
-const USERS = [
-  { email: 'Usooludheen@gmail.com', password: 'Usooludheen1G2@32fgFgg', role: 'teamleader1' },
-  { email: 'Shareea@gmail.com', password: 'Shareea2G2@32fds2jhh@12', role: 'teamleader2' },
-  { email: 'LugaWalHalara@gmail.com', password: 'LugaWalHalara3G2@32fgFHjkhgg', role: 'teamleader3' },
-  { email: 'admin2024Sports@gmail.com', password: 'admin1dss22@32fgFgg', role: 'admin' },
-];
+import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
+import { app } from '../firebase-config'; // Import the Firebase app instance
 
 function Login({ onLogin, onClose }) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
 
-  const handleSubmit = (e) => {
+  const auth = getAuth(app); // Get the Auth instance
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setError('');
 
-    const user = USERS.find(
-      (u) => u.email === email && u.password === password
-    );
-
-    if (user) {
-      onLogin({ email: user.email, role: user.role });
-    } else {
-      setError('Invalid email or password');
+    try {
+      const userCredential = await signInWithEmailAndPassword(auth, email, password);
+      const user = userCredential.user;
+      // For now, we'll assume a default role or fetch it from a database if available
+      // For this example, let's just use the email as the identifier and a placeholder role
+      onLogin({ email: user.email, role: 'visitor' }); // You might want to fetch the actual role from a database
+    } catch (error) {
+      setError(error.message);
     }
   };
 
@@ -37,7 +33,7 @@ function Login({ onLogin, onClose }) {
       >
         &times;
       </button>
-      <h2 className="text-3xl font-extrabold text-center mb-8 text-gray-800">LLLLLLLogin to Sports Portal</h2>
+      <h2 className="text-3xl font-extrabold text-center mb-8 text-gray-800">LLogin to Sports Portal</h2>
       <form onSubmit={handleSubmit} className="space-y-6">
         {error && <p className="text-red-500 text-center mb-4 text-sm">{error}</p>}
         <div>

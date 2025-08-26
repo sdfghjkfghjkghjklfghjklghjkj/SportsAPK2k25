@@ -1,5 +1,7 @@
 import React, { useState, useEffect, Suspense, lazy } from 'react';
 import Login from './components/Login';
+import { getAuth, onAuthStateChanged, signOut } from 'firebase/auth';
+import { app } from './firebase-config'; // Import the Firebase app instance
 
 const TeamLeaderPortal = lazy(() => import('./components/TeamLeaderPortal'));
 const AdminPortal = lazy(() => import('./components/AdminPortal'));
@@ -9,14 +11,28 @@ const EventSchedule = lazy(() => import('./components/EventSchedule')); // Impor
 function App() {
   const [user, setUser] = useState(null); // { email, role }
   const [showLoginModal, setShowLoginModal] = useState(false);
+  const auth = getAuth(app); // Get the Auth instance
 
   useEffect(() => {
-    // Check for existing session or token in localStorage
-    const storedUser = localStorage.getItem('user');
-    if (storedUser) {
-      setUser(JSON.parse(storedUser));
-    }
-  }, []);
+    const unsubscribe = onAuthStateChanged(auth, (firebaseUser) => {
+      if (firebaseUser) {
+        // User is signed in, see if we have a role stored locally or fetch it
+        const storedUser = localStorage.getItem('user');
+        if (storedUser) {
+          setUser(JSON.parse(storedUser));
+        } else {
+          // If no role is stored, default to 'visitor' or fetch from a database
+          setUser({ email: firebaseUser.email, role: 'visitor' });
+        }
+      } else {
+        // User is signed out
+        setUser(null);
+        localStorage.removeItem('user');
+      }
+    });
+
+    return () => unsubscribe(); // Cleanup subscription
+  }, [auth]);
 
   const handleLogin = (userData) => {
     setUser(userData);
@@ -24,9 +40,14 @@ function App() {
     setShowLoginModal(false); // Hide login modal after successful login
   };
 
-  const handleLogout = () => {
-    setUser(null);
-    localStorage.removeItem('user');
+  const handleLogout = async () => {
+    try {
+      await signOut(auth);
+      setUser(null);
+      localStorage.removeItem('user');
+    } catch (error) {
+      console.error("Error signing out: ", error);
+    }
   };
 
   return (
